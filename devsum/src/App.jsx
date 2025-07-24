@@ -8,12 +8,14 @@ function App() {
 
   return (
     <>
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500">
-      <h1 className="text-4xl font-bold text-white">Hello Tailwind CSS 👋</h1>
-      <p className="text-lg text-yellow-200 mt-4">
-        If you see this styled, Tailwind is working!
-      </p>
-    </div>
+   <div className="bg-[#132c44] text-white rounded-xl p-6">
+  This is a styled card using Tailwind classes!
+</div>
+
+<button className="bg-[#ff6b00] text-white py-2 px-4 rounded-lg hover:bg-orange-600">
+  Apply Now
+</button>
+
 
     </>
   )
