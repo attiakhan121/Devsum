@@ -1,29 +1,15 @@
-import "./App.css";
-import Button from "./components/Button";
-import Loader from "./components/Loader";
-import FormInput from "./components/FormInput";
-import NotFound from "./components/NotFound";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Import your pages (create them if not already)
 
 function App() {
   return (
-    <>
-      <div className="bg-[#132c44] rounded-xl p-6">
-        <div className="h-1 w-full bg-border-blue"></div>
-      </div>
-
-      <Button
-        size="lg"
-        variant="primary"
-        disabled
-        className="flex items-center justify-center"
-      >
-        <Loader />
-        Apply Now more
-      </Button>
-
-      <FormInput placeholder="hello" type="name" isSearch={true} label="name" />
-      <NotFound />
-    </>
+    <Router>
+      <Routes>
+     
+        {/* Add more routes as needed */}
+      </Routes>
+    </Router>
   );
 }
 
