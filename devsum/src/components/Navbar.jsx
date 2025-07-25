@@ -92,7 +92,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile menu button (Hamburger/X icon) */}
+          {/* mobile navbar */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden text-white hover:text-orange-400 transition-colors"
@@ -101,7 +101,6 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Navigation Menu (conditionally rendered) */}
         {isOpen && (
           <div className="md:hidden bg-slate-900/95 backdrop-blur-sm border-t border-slate-700">
             <div className="px-2 pt-2 pb-3 space-y-1">
@@ -114,7 +113,7 @@ const Navbar = () => {
                   {link.name}
                 </button>
               ))}
-              {/* Sign In/Sign Up buttons for mobile still direct, or you could add a mobile-specific user icon too */}
+
               <div className="pt-2 space-y-2">
                 <button className="w-full px-3 py-2 text-white border border-orange-400 rounded-lg hover:bg-orange-400 transition-colors">
                   Sign In
