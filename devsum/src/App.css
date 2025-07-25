@@ -1,9 +1,10 @@
-#root {
+.page-wrapper {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
+
 /* You can keep your existing logo styles */
 
 .logo {
@@ -17,12 +18,11 @@
 }
 
 .card {
-  background-color: #132c44;  /* card background */
+  background-color: #132c44; /* card background */
   color: #ffffff;
   padding: 1.5rem;
   border-radius: 1rem;
 }
-
 
 .logo {
   height: 6em;

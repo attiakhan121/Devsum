@@ -1,24 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import Button from "./components/Button";
+import Loader from "./components/Loader";
+import FormInput from "./components/FormInput";
+import NotFound from "./components/NotFound";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-   <div className="bg-[#132c44] text-white rounded-xl p-6">
-  This is a styled card using Tailwind classes!
-</div>
+      <div className="bg-[#132c44] rounded-xl p-6">
+        <div className="h-1 w-full bg-border-blue"></div>
+      </div>
 
-<button className="bg-[#ff6b00] text-white py-2 px-4 rounded-lg hover:bg-orange-600">
-  Apply Now
-</button>
+      <Button
+        size="lg"
+        variant="primary"
+        disabled
+        className="flex items-center justify-center"
+      >
+        <Loader />
+        Apply Now more
+      </Button>
 
-
+      <FormInput placeholder="hello" type="name" isSearch={true} label="name" />
+      <NotFound />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
