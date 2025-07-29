@@ -6,6 +6,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [isDropdownOpen, setisDropdownOpen] = useState(false);
   const isDropdownRef = useRef(null); 
+   const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,7 +60,7 @@ const Navbar = () => {
           </button>
 
           {/* navlinks for big screens */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-8 ml-auto"> {/* Added ml-auto here */}
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -80,7 +81,7 @@ const Navbar = () => {
                 <User size={24} />
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1">
                   <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
                     Sign In
                   </button>
@@ -92,13 +93,35 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* mobile navbar */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden text-white hover:text-orange-400 transition-colors"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* mobile navbar controls */}
+          <div className="md:hidden flex items-center space-x-4">
+            <div className="relative" ref={isDropdownRef}>
+              <button
+                onClick={() => setisDropdownOpen(!isDropdownOpen)}
+                className="text-white hover:text-orange-400 transition-colors p-2 rounded-full hover:bg-slate-800"
+                aria-haspopup="true"
+                aria-expanded={isDropdownOpen ? "true" : "false"}
+              >
+                <User size={24} />
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1">
+                  <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
+                    Sign In
+                  </button>
+                  <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
+                    Sign Up
+                  </button>
+                </div>
+              )}
+            </div>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-white hover:text-orange-400 transition-colors"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
 
         {isOpen && (
@@ -113,15 +136,6 @@ const Navbar = () => {
                   {link.name}
                 </button>
               ))}
-
-              <div className="pt-2 space-y-2">
-                <button className="w-full px-3 py-2 text-white border border-orange-400 rounded-lg hover:bg-orange-400 transition-colors">
-                  Sign In
-                </button>
-                <button className="w-full px-3 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
-                  Sign Up
-                </button>
-              </div>
             </div>
           </div>
         )}

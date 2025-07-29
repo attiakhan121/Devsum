@@ -7,7 +7,7 @@
 }
 
 /* Logo styles */
-.logo {
+ .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
@@ -16,37 +16,76 @@
 
 .logo:hover {
   filter: drop-shadow(0 0 2em #ff6b00); /* orange hover */
-}
+ }
 
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
-}
+} */ */
 
 /* Card styling */
-.card {
+ .card {
   background-color: #132c44;
   color: #ffffff;
   padding: 2em;
   border-radius: 1rem;
-}
+} 
 
 /* Optional: logo spinning on hover */
-@keyframes logo-spin {
+ @keyframes logo-spin {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(360deg);
   }
-}
+} 
 
-@media (prefers-reduced-motion: no-preference) {
+ @media(prefers-reduced-motion: no-preference) {
   a:nth-of-type(2) .logo {
     animation: logo-spin infinite 20s linear;
   }
-}
+} 
 
 /* Misc */
-.read-the-docs {
+ .read-the-docs {
   color: #888;
+} 
+
+
+/* CSS for Swiper*/
+.testimonials-swiper .swiper-pagination {
+  bottom: 5px; 
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  z-index: 10; 
+}
+
+.testimonials-swiper .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: #64748b; /* Slate-400 equivalent for visibility */
+  opacity: 1;
+  transition: all 0.3s;
+  border-radius: 50%; /* Ensure they are round */
+}
+
+.testimonials-swiper .swiper-pagination-bullet-active {
+  background: #f97316; /* Orange-500 for active state */
+  transform: scale(1.2);
+}
+
+.testimonials-swiper .swiper-button-next,
+.testimonials-swiper .swiper-button-prev {
+  color: #f97316; /* Orange-500 for navigation arrows */
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10; /* Ensure arrows are also above other elements */
+  /* Adjusted for wider separation */
+  margin: 0 1px; /* Added horizontal margin to push arrows further apart */
+}
+
+.testimonials-swiper .swiper-button-next:hover,
+.testimonials-swiper .swiper-button-prev:hover {
+  color: #ea580c; /* Darker orange on hover */
 }

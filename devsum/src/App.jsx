@@ -5,31 +5,21 @@ import Loader from "./components/Loader";
 import FormInput from "./components/FormInput";
 import NotFound from "./components/NotFound";
 import Navbar from "./components/Navbar"; 
+import HomePage from './pages/HomePage';
+import Footer from './components/Footer';
+import "./index.css";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 function App() {
   return (
     <>
       <Navbar />
+      <HomePage />
+      <Footer />
 
 
-      <div style={{ paddingTop: '80px' }}> 
-        <div className="bg-[#132c44] rounded-xl p-6">
-          <div className="h-1 w-full bg-border-blue"></div>
-        </div>
-
-        <Button
-          size="lg"
-          variant="primary"
-          disabled
-          className="flex items-center justify-center"
-        >
-          <Loader />
-          Apply Now more
-        </Button>
-
-        <FormInput placeholder="hello" type="name" isSearch={true} label="name" />
-        <NotFound />
-      </div>
     </>
   );
 }
