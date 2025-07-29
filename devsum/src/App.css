@@ -64,30 +64,30 @@
 .testimonials-swiper .swiper-pagination-bullet {
   width: 12px;
   height: 12px;
-  background: #64748b; /* Slate-400 equivalent for visibility */
+  background: #64748b; 
   opacity: 1;
   transition: all 0.3s;
-  border-radius: 50%; /* Ensure they are round */
+  border-radius: 50%; 
 }
 
 .testimonials-swiper .swiper-pagination-bullet-active {
-  background: #f97316; /* Orange-500 for active state */
+  background: #f97316; 
   transform: scale(1.2);
 }
 
 .testimonials-swiper .swiper-button-next,
 .testimonials-swiper .swiper-button-prev {
-  color: #f97316; /* Orange-500 for navigation arrows */
+  color: #f97316; 
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10; /* Ensure arrows are also above other elements */
-  /* Adjusted for wider separation */
-  margin: 0 1px; /* Added horizontal margin to push arrows further apart */
+  z-index: 10; 
+ 
+  margin: 0 1px; 
 }
 
 .testimonials-swiper .swiper-button-next:hover,
 .testimonials-swiper .swiper-button-prev:hover {
-  color: #ea580c; /* Darker orange on hover */
+  color: #ea580c; 
 }
 
 
