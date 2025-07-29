@@ -85,6 +85,43 @@ const HomePage = () => {
         </div>
       </section>
 
+      
+      {/* Courses Section */}
+      <section id="courses" className="py-20 bg-[#002140]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Our <span className="text-orange-400">Courses</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Choose from our comprehensive range of courses designed to take you from beginner to professional developer.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            {courses.slice(0, 3).map((course) => (
+              <Card
+                key={course.id}
+                type="course"
+                data={course}
+                onButtonClick={handleCourseClick}
+              />
+            ))}
+          </div>
+          
+          <div className="text-center mt-12">
+            <button
+              onClick={() => scrollToSection('courses')}
+              className="group px-8 py-4 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-lg font-semibold mx-auto transform hover:scale-105"
+            >
+              Explore More Courses
+              <ChevronDown className="group-hover:translate-y-1 transition-transform" size={20} />
+            </button>
+          </div>
+        </div>
+      </section>
+
+
     </>
   );
 };
