@@ -223,6 +223,31 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section id="team" className="py-20 bg-[#002147]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              Meet Our <span className="text-orange-400">Expert Team</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Learn from industry professionals who have worked at top tech companies and are passionate about teaching.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {teamMembers.map((member) => (
+              <Card
+                key={member.id}
+                type="team"
+                data={member}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+
 
 
     </>
