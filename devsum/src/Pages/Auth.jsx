@@ -46,17 +46,17 @@ const Auth = () => {
 
         {/* Login Welcome Panel */}
         <aside
-          className={`absolute top-0 right-0 w-1/2 h-full flex flex-col justify-start items-end text-white px-10 pt-16 z-20
+          className={`absolute top-7 right-0 w-1/2 h-full flex flex-col justify-start items-end text-white px-10 pt-16 z-20
             ${showRegister
               ? "translate-x-full opacity-0 blur-sm pointer-events-none delay-[0ms]"
               : "translate-x-0 opacity-100 blur-0 pointer-events-auto delay-[1600ms]"}
             transition-all duration-[900ms]`}
         >
           <h2 className="text-[36px] uppercase leading-[1.3] mb-4 font-bold text-right">
-            Welcome<br />To E-<br />Commerce<br />Store
+            Welcome<br />To<br />DevSum
           </h2>
           <p className="text-base text-right leading-snug">
-            Hi, Here you will get all<br />kinds of stuff
+            Welcome to the Future<br /> of Development
           </p>
         </aside>
 
@@ -76,17 +76,19 @@ const Auth = () => {
 
         {/* Sign Up Welcome Panel */}
         <aside
-          className={`absolute top-4 left-0 w-1/2 h-full flex flex-col justify-start items-start text-white 
+          className={`absolute top-10 left-0 w-1/2 h-full flex flex-col justify-start items-start text-white 
             px-10 pt-20 z-20 transition-all duration-[900ms] 
             ${showRegister
               ? "translate-x-0 opacity-100 blur-0 delay-[1600ms]"
               : "-translate-x-full opacity-0 blur-sm pointer-events-none delay-[0ms]"}`}
         >
           <h2 className="text-[36px] uppercase leading-[1.3] mb-4 font-bold text-left">
-            E-<br />Commerce<br />Store
+            DevSum
           </h2>
           <p className="text-base text-left leading-snug">
-            Join Us today and get <br /> amazing product and <br /> shopify ❤
+            Create your account<br />
+            and explore endless<br />
+            possibilities with us
           </p>
         </aside>
 
