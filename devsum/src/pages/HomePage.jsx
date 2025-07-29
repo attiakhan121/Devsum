@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight, ChevronDown } from 'lucide-react';
-import Button from "../components/Button";
 import Card from "../components/Card";
 import { heroData } from '../data/heroData';
 import { courses } from '../data/coursesData';
@@ -20,6 +19,8 @@ const HomePage = () => {
     }
   };
 
+
+  //these will be used later on with proper paths
   // if course is clicked
   const handleCourseClick = (course) => {
     console.log('Course clicked:', course);
@@ -300,11 +301,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-
-
-
-
     </>
   );
 };

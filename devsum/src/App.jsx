@@ -16,11 +16,13 @@ import 'swiper/css/navigation';
 function App() {
   return (
     <>
+      <Router>
       <Navbar />
-      <HomePage />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
       <Footer />
-
-
+    </Router>
     </>
   );
 }
