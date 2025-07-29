@@ -247,6 +247,61 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-[#002140]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              What Our <span className="text-orange-400">Students Say</span>
+            </h2>
+            <p className="text-xl text-slate-300 max-w-3xl mx-auto">
+              Hear from our successful graduates who are now working at top tech companies worldwide.
+            </p>
+          </div>
+
+          <div className="relative px-12 pb-16 w-full">
+            <Swiper
+              modules={[Autoplay, Pagination, Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              autoplay={{
+                delay: 4000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+                bulletActiveClass: 'swiper-pagination-bullet-active',
+              }}
+              navigation={true}
+              loop={true}
+              breakpoints={{
+                640: {
+                  slidesPerView: 1,
+                },
+                768: {
+                  slidesPerView: 2,
+                },
+                1024: {
+                  slidesPerView: 3,
+                },
+              }}
+              className="testimonials-swiper"
+            >
+              {testimonials.map((testimonial) => (
+                <SwiperSlide key={testimonial.id}>
+                  <Card
+                    type="testimonial"
+                    data={testimonial}
+                    className="mx-2"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </div>
+      </section>
+
+
 
 
 
