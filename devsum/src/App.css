@@ -50,3 +50,12 @@
 .read-the-docs {
   color: #888;
 }
+.swiper-pagination-bullet {
+  background-color: #d1d5db !important; /* Example: Tailwind gray-300 */
+  opacity: 1;
+}
+
+/* Active (current) pagination dot */
+.swiper-pagination-bullet-active {
+  background-color: #f97316 !important; /* Example: Tailwind orange-500 */
+}
