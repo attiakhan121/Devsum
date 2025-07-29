@@ -1,4 +1,5 @@
-import React from 'react'; // Make sure React is imported if not already
+import React from 'react'; 
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css";
 import Button from "./components/Button";
 import Loader from "./components/Loader";
