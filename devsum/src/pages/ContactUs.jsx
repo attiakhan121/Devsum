@@ -13,8 +13,8 @@ const ContactUs = ()=>{
             <div className='text-center max-w-3xl mx-auto'>
                 <motion.h1
                  className="text-4xl md:text-5xl font-extrabold mb-4"
-                 initial={{ opacity: 0, y: -30 }}
-                 animate={{ opacity: 1, y: 0 }}
+                 initial={{ opacity: 0, y: -30 }} //set the initail state before animation runs moved up and animate
+                 animate={{ opacity: 1, y: 0 }} //sets the final state
                  transition={{ duration: 0.6 }}
                 >
                     Get in <span className="text-orange-600">Touch</span> with Us

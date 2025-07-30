@@ -16,7 +16,12 @@ const ContactForm = () =>{
     const [successMessage, setSuccessMessage] = useState('');
 
     const handleChange = (e)=>{
-        setForm({ ...form, [e.target.name]: e.target.value });
+        // setForm({ ...form, [e.target.name]: e.target.value });
+        const {name,value}=e.target;
+        setForm((prev)=>({...prev, [name]: value}));
+        if(errors[name]){
+            setErrors((prevErrors) => ({ ...prevErrors, [name]: '' }));
+        }
     };
 
     const validate = () =>{
@@ -185,7 +190,7 @@ const ContactForm = () =>{
         </button>
         </div>
         {successMessage && (
-         <p className="mt-4 text-green-700 bg-green-100 border border-green-400 px-4 py-2 rounded-md">
+         <p className="mt-4 text-green-700 bg-gray-100 border border-gray-400 px-4 py-2 rounded-md">
        {successMessage}
        </p>
         )}

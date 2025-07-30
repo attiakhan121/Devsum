@@ -36,7 +36,7 @@ const StatsBar = () =>{
                         initial={{opacity:0, y:20}}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.2 }}
-                        className=" shadow-md rounded-xl p-6 text-center hover:shadow-lg transition"
+                        className=" shadow-md rounded-xl p-6 text-center hover:shadow-lg transition hover:bg-[#071c32]"
                         >
                              <div className="text-3xl font-bold text-white-600 mb-2">{item.value}</div>
                             <div className="text-gray-700 text-sm font-medium">{item.label}</div>

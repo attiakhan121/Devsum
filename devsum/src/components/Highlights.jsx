@@ -30,7 +30,7 @@ const Highlights = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: index * 0.2 }}
-          className="bg-white rounded-2xl p-6 text-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:shadow-[0_10px_25px_rgba(0,0,0,0.15)] shadow-[0_4px_15px_rgba(0,0,0,0.05)]"
+          className="bg-white rounded-2xl p-6 text-center transition-all duration-300 transform hover:-translate-y-1 hover:scale-105 hover:bg-gray-100 hover-shadow-2xl shadow-md"
         >
           <div className="flex justify-center mb-4">
             {item.icon}

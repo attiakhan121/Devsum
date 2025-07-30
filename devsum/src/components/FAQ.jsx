@@ -15,7 +15,7 @@ const faqs=[
     },
 ]
 const FAQ = () =>{
-    const [openIndex,setOpenIndex] = useState(null);
+    const [openIndex,setOpenIndex] = useState(0);
     const toggle = (index) =>{
         setOpenIndex(openIndex === index ? null:index)
     };
