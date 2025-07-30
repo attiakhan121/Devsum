@@ -8,6 +8,7 @@ import NotFound from "./components/NotFound";
 import Navbar from "./components/Navbar"; 
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
+import ContactUs from "./pages/ContactUs";
 import "./index.css";
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -20,6 +21,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+         <Route path="/contact" element={<ContactUs />} />
       </Routes>
       <Footer />
     </Router>

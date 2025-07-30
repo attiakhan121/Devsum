@@ -11,10 +11,11 @@ import { teamMembers } from '../data/teamData';
 import { testimonials } from '../data/testimonialsData';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useLocation } from 'react-router-dom'; 
 
 const HomePage = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const location = useLocation(); 
 
   useEffect(() => {
     AOS.init({
@@ -23,6 +24,18 @@ const HomePage = () => {
       mirror: false,
     });
   }, []);
+
+  //navigating from other pages
+  useEffect(() => {
+    if (location.state && location.state.scrollToId) {
+      const element = document.getElementById(location.state.scrollToId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+        // Clear the state after scrolling 
+        navigate(location.pathname, { replace: true, state: {} }); 
+      }
+    }
+  }, [location, navigate]); 
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);

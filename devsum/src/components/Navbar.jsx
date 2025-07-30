@@ -1,23 +1,24 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, User } from 'lucide-react'; 
-import { Link } from 'react-router-dom'; 
+import { Link, useNavigate, useLocation } from 'react-router-dom'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDropdownOpen, setisDropdownOpen] = useState(false);
   const isDropdownRef = useRef(null); 
-  
+  const navigate = useNavigate();
+  const location = useLocation(); 
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50); //after certain point navbar becomes more dark
+      setScrolled(window.scrollY > 50); // Navbar becomes darker after scrolling down 50px
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  //this one closes the dropdown by random clicks
+  // Closes the dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isDropdownRef.current && !isDropdownRef.current.contains(event.target)) {
@@ -28,16 +29,28 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // scrolling up and down in sections
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+  // to navigate for section links on the home page
+  const handleNavLinkClick = (sectionId) => {
+    if (location.pathname === '/') {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // goes to specific section
+      navigate('/', { state: { scrollToId: sectionId } });
     }
     setIsOpen(false); 
     setisDropdownOpen(false); 
   };
 
+
+  const handleDirectLinkClick = () => {
+    setIsOpen(false); 
+    setisDropdownOpen(false); 
+  };
+
+  // Define navigation links for sections on the home page
   const navLinks = [
     { name: 'Courses', id: 'courses' },
     { name: 'Projects', id: 'projects' },
@@ -46,11 +59,6 @@ const Navbar = () => {
     { name: 'Testimonials', id: 'testimonials' },
   ];
 
-  const handleLinkClick = () => {
-    setIsOpen(false);
-    setisDropdownOpen(false);
-  };
-
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       scrolled ? 'bg-slate-900/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
@@ -58,18 +66,18 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <button
-            onClick={() => scrollToSection('hero')} //this is logo button 
+            onClick={() => handleNavLinkClick('hero')}
             className="text-2xl font-bold text-white hover:text-orange-400 transition-colors"
           >
             DEVSUM
           </button>
 
-          {/* navlinks for big screens */}
+          {/* Navigation links for larger screens */}
           <div className="hidden md:flex items-center space-x-8 ml-auto">
             {navLinks.map((link) => (
               <button
                 key={link.id}
-                onClick={() => scrollToSection(link.id)}
+                onClick={() => handleNavLinkClick(link.id)} //section scrolling
                 className="text-white hover:text-orange-400 transition-colors font-medium"
               >
                 {link.name}
@@ -79,7 +87,7 @@ const Navbar = () => {
             {/* Contact Page Link */}
             <Link
               to="/contact"
-              onClick={handleLinkClick}
+              onClick={handleDirectLinkClick} //page navigation
               className="text-white hover:text-orange-400 transition-colors font-medium"
             >
               Contact
@@ -97,15 +105,15 @@ const Navbar = () => {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1">
                   <Link
-                    to="/auth" 
-                    onClick={handleLinkClick}
+                    to="/auth" // Navigates to the Auth page
+                    onClick={handleDirectLinkClick}
                     className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
                   >
                     Sign In
                   </Link>
                   <Link
-                    to="/auth" 
-                    onClick={handleLinkClick}
+                    to="/auth" //same
+                    onClick={handleDirectLinkClick}
                     className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
                   >
                     Sign Up
@@ -115,7 +123,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* mobile navbar controls */}
+          {/* Mobile navbar */}
           <div className="md:hidden flex items-center space-x-4">
             <div className="relative" ref={isDropdownRef}>
               <button
@@ -129,15 +137,15 @@ const Navbar = () => {
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1">
                   <Link
-                    to="/auth" 
-                    onClick={handleLinkClick}
+                    to="/auth"
+                    onClick={handleDirectLinkClick}
                     className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
                   >
                     Sign In
                   </Link>
                   <Link
-                    to="/auth" 
-                    onClick={handleLinkClick}
+                    to="/auth"
+                    onClick={handleDirectLinkClick}
                     className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
                   >
                     Sign Up
@@ -160,17 +168,17 @@ const Navbar = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.id}
-                  onClick={() => scrollToSection(link.id)}
+                  onClick={() => handleNavLinkClick(link.id)} //section scrolling
                   className={`block w-full text-left px-3 py-2 text-white hover:text-orange-400 transition-colors`}
                 >
                   {link.name}
                 </button>
               ))}
 
-              {/* Contact page link  */}
+              {/* Contact page*/}
               <Link
                 to="/contact"
-                onClick={handleLinkClick}
+                onClick={handleDirectLinkClick} 
                 className="block w-full text-left px-3 py-2 text-white hover:text-orange-400 transition-colors"
               >
                 Contact
