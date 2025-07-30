@@ -91,3 +91,8 @@
 }
 
 
+
+/* Active (current) pagination dot */
+.swiper-pagination-bullet-active {
+  background-color: #f97316 !important; /* Example: Tailwind orange-500 */
+}
