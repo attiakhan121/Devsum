@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import Card from "../components/Card";
 import { heroData } from '../data/heroData';
@@ -7,11 +9,21 @@ import { projects } from '../data/projectsData';
 import { aboutFeatures } from '../data/aboutData';
 import { teamMembers } from '../data/teamData';
 import { testimonials } from '../data/testimonialsData';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import { useNavigate } from 'react-router-dom'; 
 
 const HomePage = () => {
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1000,
+      once: true,
+      mirror: false,
+    });
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -19,31 +31,34 @@ const HomePage = () => {
     }
   };
 
-
-  //these will be used later on with proper paths
-  // if course is clicked
-  const handleCourseClick = (course) => {
-    console.log('Course clicked:', course);
+  // Navigation handlers for internal and external links
+  const handleCourseLearnMore = (course) => {
+    console.log('Course Learn More clicked:', course);
+    navigate('/courses'); 
   };
 
-  //if project is clicked
-  const handleProjectClick = (project) => {
-    console.log('Project clicked:', project);
+  const handleProjectView = (project) => {
+    console.log('Project View clicked:', project);
+    window.open('https://intern-hub-dashboard.vercel.app/', '_blank'); 
   };
 
-  //project source is clicked
-  const handleProjectSourceClick = (project) => {
-    console.log('Project source clicked:', project);
+  const handleProjectSource = (project) => {
+    console.log('Project Source clicked:', project);
+    window.open('https://github.com/attiakhan121', '_blank');
   };
 
   return (
     <>
       {/* Hero Section */}
-      <section id="hero" className="min-h-screen relative overflow-hidden bg-[#002147] animate-fade-in" >
+      <section id="hero" className="min-h-screen relative overflow-hidden bg-[#002147]" >
         <div className="absolute inset-0 "></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-16">
           <div className="text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+            <h1
+              className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
+              data-aos="fade-up"
+              data-aos-duration="1000"
+            >
               Empowering Future<br />
               <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
                 Developers
@@ -51,27 +66,42 @@ const HomePage = () => {
               Courses & Real Projects
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto">
+            <p
+              className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto"
+              data-aos="fade-up"
+              data-aos-delay="200"
+              data-aos-duration="1000"
+            >
               Join thousands of developers who have transformed their careers with our hands-on approach to learning modern web development.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
+            <div
+              className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+              data-aos="fade-up"
+              data-aos-delay="400"
+              data-aos-duration="1000"
+            >
               <button
-                onClick={() => scrollToSection('courses')}
+                onClick={() => navigate('/courses')} 
                 className="group px-8 py-4 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-all duration-300 flex items-center gap-2 text-lg font-semibold transform hover:scale-105"
               >
                 Explore Courses
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
               </button>
               <button
-                onClick={() => scrollToSection('projects')}
+                onClick={() => navigate('/projects')} 
                 className="px-8 py-4 border-2 border-orange-400 text-orange-400 rounded-xl hover:bg-orange-400 hover:text-white transition-all duration-300 text-lg font-semibold"
               >
                 View Projects
               </button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div
+              className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+              data-aos="fade-up"
+              data-aos-delay="600"
+              data-aos-duration="1000"
+            >
               {heroData.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-orange-500/20 rounded-full mb-4">
@@ -90,7 +120,11 @@ const HomePage = () => {
       {/* Courses Section */}
       <section id="courses" className="py-20 bg-[#002140]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div
+            className="text-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Our <span className="text-orange-400">Courses</span>
             </h2>
@@ -100,19 +134,25 @@ const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-            {courses.slice(0, 3).map((course) => (
-              <Card
-                key={course.id}
-                type="course"
-                data={course}
-                onButtonClick={handleCourseClick}
-              />
+            {courses.slice(0, 3).map((course, index) => (
+              <div key={course.id} data-aos="zoom-in" data-aos-delay={index * 100} data-aos-duration="1000">
+                <Card
+                  type="course"
+                  data={course}
+                  onButtonClick={() => handleCourseLearnMore(course)}
+                />
+              </div>
             ))}
           </div>
           
-          <div className="text-center mt-12">
+          <div
+            className="text-center mt-12"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="1000"
+          >
             <button
-              onClick={() => scrollToSection('courses')}
+              onClick={() => navigate('/courses')} 
               className="group px-8 py-4 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-lg font-semibold mx-auto transform hover:scale-105"
             >
               Explore More Courses
@@ -125,7 +165,11 @@ const HomePage = () => {
       {/* Projects Section */}
       <section id="projects" className="py-20 bg-[#002147]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div
+            className="text-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Real-World <span className="text-orange-400">Projects</span>
             </h2>
@@ -135,20 +179,26 @@ const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
-            {projects.slice(0, 3).map((project) => (
-              <Card
-                key={project.id}
-                type="project"
-                data={project}
-                onButtonClick={handleProjectClick}
-                onSecondaryButtonClick={handleProjectSourceClick}
-              />
+            {projects.slice(0, 3).map((project, index) => (
+              <div key={project.id} data-aos="zoom-in" data-aos-delay={index * 100} data-aos-duration="1000">
+                <Card
+                  type="project"
+                  data={project}
+                  onButtonClick={() => handleProjectView(project)}
+                  onSecondaryButtonClick={() => handleProjectSource(project)} 
+                />
+              </div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div
+            className="text-center mt-12"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="1000"
+          >
             <button
-              onClick={() => scrollToSection('all-projects')}
+              onClick={() => navigate('/projects')} 
               className="group px-8 py-4 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-lg font-semibold mx-auto transform hover:scale-105"
             >
               Explore More Projects
@@ -161,7 +211,11 @@ const HomePage = () => {
       {/* About Section */}
       <section id="about" className="py-20 bg-[#002140]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div
+            className="text-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               About <span className="text-orange-400">DEVSUM</span>
             </h2>
@@ -172,7 +226,10 @@ const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
-            <div>
+            <div
+              data-aos="fade-right"
+              data-aos-duration="1000"
+            >
               <h3 className="text-3xl font-bold text-white mb-6">
                 Why Choose DEVSUM?
               </h3>
@@ -203,18 +260,24 @@ const HomePage = () => {
 
             <div className="grid grid-cols-2 gap-6">
               {aboutFeatures.map((feature, index) => (
-                <Card
-                  key={index}
-                  type="about-feature"
-                  data={feature}
-                />
+                <div key={index} data-aos="zoom-in" data-aos-delay={index * 100} data-aos-duration="1000">
+                  <Card
+                    type="about-feature"
+                    data={feature}
+                  />
+                </div>
               ))}
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          <div
+            className="text-center mt-12"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="1000"
+          >
             <button
-              onClick={() => scrollToSection('about')}
+              onClick={() => navigate('/about')} 
               className="group px-8 py-4 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-lg font-semibold mx-auto transform hover:scale-105"
             >
               Explore More About Us
@@ -227,7 +290,11 @@ const HomePage = () => {
       {/* Team Section */}
       <section id="team" className="py-20 bg-[#002147]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div
+            className="text-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Meet Our <span className="text-orange-400">Expert Team</span>
             </h2>
@@ -237,12 +304,13 @@ const HomePage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member) => (
-              <Card
-                key={member.id}
-                type="team"
-                data={member}
-              />
+            {teamMembers.map((member, index) => (
+              <div key={member.id} data-aos="zoom-in" data-aos-delay={index * 100} data-aos-duration="1000">
+                <Card
+                  type="team"
+                  data={member}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -251,7 +319,11 @@ const HomePage = () => {
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-[#002140]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <div
+            className="text-center mb-16"
+            data-aos="fade-up"
+            data-aos-duration="1000"
+          >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               What Our <span className="text-orange-400">Students Say</span>
             </h2>
@@ -260,7 +332,12 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div className="relative px-12 pb-16 w-full">
+          <div
+            className="relative px-12 pb-16 w-full"
+            data-aos="fade-up"
+            data-aos-delay="200"
+            data-aos-duration="1000"
+          >
             <Swiper
               modules={[Autoplay, Pagination, Navigation]}
               spaceBetween={30}

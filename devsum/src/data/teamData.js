@@ -7,9 +7,9 @@ export const teamMembers = [
     image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400',
     bio: '2+ years of experience in web development with expertise in React, Node.js, and cloud technologies.',
     social: {
-      linkedin: '#',
-      twitter: '#',
-      github: '#'
+      linkedin: '#https://www.linkedin.com/in/tariq-khan-157353372/',
+      facebook: '#https://www.facebook.com/tariq.khan.623472',
+      github: '#https://github.com/attiakhan121'
     }
   },
   {
@@ -20,9 +20,9 @@ export const teamMembers = [
     image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=400',
     bio: 'Frontend expert with 3+ years experience at top tech companies. Specializes in React and modern UI/UX.',
     social: {
-      linkedin: '#',
-      twitter: '#',
-      github: '#'
+      linkedin: '#https://www.linkedin.com/in/attia-tanveer-khan-8a8a81279/',
+      facebook: '#https://www.facebook.com/profile.php?id=61576985506065',
+      github: '#https://github.com/attiakhan121'
     }
   },
   {
@@ -33,9 +33,9 @@ export const teamMembers = [
     image: 'https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg?auto=compress&cs=tinysrgb&w=400',
     bio: 'Backend specialist with expertise in scalable systems, databases, cloud infrastructure, and DevOps practices.',
     social: {
-      linkedin: '#',
-      twitter: '#',
-      github: '#'
+      linkedin: '#https://www.linkedin.com/in/haseeb-ahmad-017a29316/',
+      facebook: '#https://www.facebook.com/profile.php?id=61576985506065',
+      github: '#https://github.com/attiakhan121'
     }
   }
   

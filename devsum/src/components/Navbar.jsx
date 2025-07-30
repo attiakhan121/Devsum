@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, User } from 'lucide-react'; 
+import { Link } from 'react-router-dom'; 
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDropdownOpen, setisDropdownOpen] = useState(false);
   const isDropdownRef = useRef(null); 
-   const [activeSection, setActiveSection] = useState('hero');
+  
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,7 +17,7 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-//this one closes the dropdown by random clicks
+  //this one closes the dropdown by random clicks
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (isDropdownRef.current && !isDropdownRef.current.contains(event.target)) {
@@ -43,8 +44,12 @@ const Navbar = () => {
     { name: 'About Us', id: 'about' },
     { name: 'Team', id: 'team' },
     { name: 'Testimonials', id: 'testimonials' },
-    { name: 'Contact', id: 'contact' }
   ];
+
+  const handleLinkClick = () => {
+    setIsOpen(false);
+    setisDropdownOpen(false);
+  };
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -60,7 +65,7 @@ const Navbar = () => {
           </button>
 
           {/* navlinks for big screens */}
-          <div className="hidden md:flex items-center space-x-8 ml-auto"> {/* Added ml-auto here */}
+          <div className="hidden md:flex items-center space-x-8 ml-auto">
             {navLinks.map((link) => (
               <button
                 key={link.id}
@@ -70,6 +75,15 @@ const Navbar = () => {
                 {link.name}
               </button>
             ))}
+
+            {/* Contact Page Link */}
+            <Link
+              to="/contact"
+              onClick={handleLinkClick}
+              className="text-white hover:text-orange-400 transition-colors font-medium"
+            >
+              Contact
+            </Link>
 
             <div className="relative" ref={isDropdownRef}>
               <button
@@ -82,12 +96,20 @@ const Navbar = () => {
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1">
-                  <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
+                  <Link
+                    to="/auth" 
+                    onClick={handleLinkClick}
+                    className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
+                  >
                     Sign In
-                  </button>
-                  <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
+                  </Link>
+                  <Link
+                    to="/auth" 
+                    onClick={handleLinkClick}
+                    className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
+                  >
                     Sign Up
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>
@@ -106,12 +128,20 @@ const Navbar = () => {
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-md shadow-lg py-1">
-                  <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
+                  <Link
+                    to="/auth" 
+                    onClick={handleLinkClick}
+                    className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
+                  >
                     Sign In
-                  </button>
-                  <button className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors">
+                  </Link>
+                  <Link
+                    to="/auth" 
+                    onClick={handleLinkClick}
+                    className="block px-4 py-2 text-sm text-white hover:bg-orange-500 w-full text-left transition-colors"
+                  >
                     Sign Up
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>
@@ -131,11 +161,20 @@ const Navbar = () => {
                 <button
                   key={link.id}
                   onClick={() => scrollToSection(link.id)}
-                  className="block w-full text-left px-3 py-2 text-white hover:text-orange-400 transition-colors"
+                  className={`block w-full text-left px-3 py-2 text-white hover:text-orange-400 transition-colors`}
                 >
                   {link.name}
                 </button>
               ))}
+
+              {/* Contact page link  */}
+              <Link
+                to="/contact"
+                onClick={handleLinkClick}
+                className="block w-full text-left px-3 py-2 text-white hover:text-orange-400 transition-colors"
+              >
+                Contact
+              </Link>
             </div>
           </div>
         )}
