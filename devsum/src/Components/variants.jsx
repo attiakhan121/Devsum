@@ -1,11 +1,9 @@
-// src/animations/variants.js
 
 export const Direction = {
   LEFT: "left",
   RIGHT: "right",
 };
 
-// Shared desktop variant (for both form & welcome message)
 export const desktopSlideVariants = {
   initial: (direction) => ({
     x: direction === Direction.LEFT ? 100 : -100,
