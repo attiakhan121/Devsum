@@ -15,7 +15,7 @@ export default function FormInput({
   const id = useId();
 
   const baseStyles = `
-    w-full px-4 py-3 bg-bg text-soft-white
+    w-full px-4 py-3 bg-transparent text-soft-white
     border border-border-blue rounded-md outline-none
     placeholder-border-blue transition-all duration-300
     focus:border-transparent focus:ring-2 focus:ring-accent
