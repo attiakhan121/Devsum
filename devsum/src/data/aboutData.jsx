@@ -5,7 +5,7 @@ export const aboutFeatures = [
   {
     icon: <BookOpen className="text-orange-400" size={32} />,
     title: 'Practical Learning',
-    description: 'Learn by building real projects that matter in the industry.'
+    description: 'Learn by building real time projects that matter in the industry.'
   },
   {
     icon: <Users className="text-orange-400" size={32} />,
