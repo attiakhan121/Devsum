@@ -1,6 +1,19 @@
+
+import {motion} from 'framer-motion';
+
+
 const ContactMap = () =>{
     return (
-        <div className='w-full md:w-1/2 p-6 bg-[#0f2338] shadow-lg rounded-2xl'>
+        <motion.div
+        whileHover={{
+            y:-10,
+            transition: { duration: 0.15, ease: "easeOut" }
+        
+       }}
+        
+        
+        className='w-full md:w-1/2 p-6 bg-[#002148] shadow-lg rounded-2xl'
+            >
             <h2 className='text-3xl font-bold text-white-800 text-center border-b pb-4 mb-4'>Our Location</h2>
             <div className="relative w-full overflow-hidden rounded-xl" style={{ paddingTop: "66.25%" }}>
             <iframe 
@@ -14,7 +27,8 @@ const ContactMap = () =>{
             className="absolute top-0 left-0 w-full h-full border-0 rounded-xl"
             referrerPolicy="no-referrer-when-downgrade"></iframe>
              </div>
-        </div>
+        
+        </motion.div>
     )
 }
 export default ContactMap;

@@ -61,7 +61,7 @@ const ContactForm = () =>{
               <div className="flex flex-col md:flex-row bg-gray-900 text-white rounded-lg shadow-lg overflow-hidden">
 
             {/* left side bg-[#0f2338]*/}
-            <div className='md:w-[30%] bg-gradient-to-b bg-[#0f2338] p-6 flex flex-col justify-center items-start space-y-6 '>
+            <div className='md:w-[30%] bg-gradient-to-b bg-[#002141] p-6 flex flex-col justify-center items-start space-y-6 '>
             <div className="flex items-center gap-2">
             <Rocket className="text-white" size={20} />
             <h2 className="text-3xl font-bold text-white">Why Devsum?</h2>
@@ -71,8 +71,8 @@ const ContactForm = () =>{
            <p className="text-sm italic">"Innovation, Collaboration, Excellence — That’s Devsum."</p>
             </div>
             {/* right side */}
-            <div className='md:w-[70%] p-6 md:p-10 bg-[#021322]'>
-            <h2 className='text-3xl font-bold mb-6 text-white-800'>Contact <span className="text-orange-600">DEVSUM</span></h2>
+            <div className='md:w-[70%] p-6 md:p-10 bg-[#002147]'>
+            <h2 className='text-3xl font-bold mb-6 text-white-800'>Contact <span className="text-orange-500">DEVSUM</span></h2>
             <form onSubmit={handleSubmit} className='space-y-6'>
                 {/* name */}
                 <div className="flex flex-col md:flex-row gap-6">
@@ -140,7 +140,7 @@ const ContactForm = () =>{
                      name="inquiryType" 
                      value={form.inquiryType}
                      onChange={handleChange}
-                     className=' text-white bg-[#021322] w-full p-2 mt-1 border rounded-md'
+                     className=' text-white bg-[#002147] w-full p-2 mt-1 border rounded-md'
                      >
                         <option value="">--Select--</option>
                         <option value="IT Services">IT Services</option>
@@ -184,7 +184,7 @@ const ContactForm = () =>{
            <div className='flex justify-center mt-6"'>
         <button
           type="submit"
-          className="text-center bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-800 transition"
+          className="text-center bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-600 transition"
         >
           Send Message
         </button>
