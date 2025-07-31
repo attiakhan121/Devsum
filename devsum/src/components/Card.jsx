@@ -1,9 +1,9 @@
 import React from 'react';
-import { ArrowRight, Clock, Users, Star, ExternalLink, Github, Linkedin, Facebook, Quote } from 'lucide-react';
+import { ArrowRight, Clock, Users, Star, ExternalLink, Github, Linkedin, Facebook,Instagram, Quote } from 'lucide-react';
 
 const Card = ({ data, type, onButtonClick, onSecondaryButtonClick }) => {
   const imageClasses = "w-full object-cover group-hover:scale-105 transition-transform duration-500";
-  const cardClasses = "group bg-slate-900 rounded-2xl overflow-hidden hover:transform hover:scale-102 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500/10 flex flex-col";
+  const cardClasses = "group bg-slate-900 rounded-2xl overflow-hidden hover:transform hover:scale-102 transition-all duration-300 hover:shadow-2xl hover:shadow-orange-500 flex flex-col";
 
   // Render content based on card type
   const renderContent = () => {
@@ -82,19 +82,7 @@ const Card = ({ data, type, onButtonClick, onSecondaryButtonClick }) => {
               <p className="text-slate-300 mb-4 leading-relaxed flex-grow">
                 {data.description}
               </p>
-              <div className="mb-6">
-                <h4 className="text-white font-semibold mb-2">Technologies used:</h4>
-                <div className="flex flex-wrap gap-2 items-start">
-                  {data.technologies.map((tech, index) => (
-                    <span
-                      key={index}
-                      className="bg-orange-500/20 text-orange-400 px-3 py-1 rounded-full text-sm border border-orange-500/30"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              
               <div className="flex gap-3 mt-auto">
                 <button
                   onClick={onButtonClick} // View proj btn
@@ -103,13 +91,7 @@ const Card = ({ data, type, onButtonClick, onSecondaryButtonClick }) => {
                   <ExternalLink size={16} />
                   View Project
                 </button>
-                <button
-                  onClick={onSecondaryButtonClick} // will go to source code 
-                  className="flex-1 border border-slate-600 text-slate-300 py-3 rounded-xl hover:bg-slate-700 transition-colors duration-300 flex items-center justify-center gap-2 font-semibold"
-                >
-                  <Github size={16} />
-                  Source Code
-                </button>
+                
               </div>
             </div>
           </>
@@ -142,6 +124,12 @@ const Card = ({ data, type, onButtonClick, onSecondaryButtonClick }) => {
                     className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-slate-400 hover:bg-orange-500 hover:text-white transition-colors duration-300"
                   >
                     <Facebook size={18} />
+                  </a>
+                  <a
+                    href={data.social.instagram}
+                    className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center text-slate-400 hover:bg-orange-500 hover:text-white transition-colors duration-300"
+                  >
+                    <Instagram size={18} />
                   </a>
                   <a
                     href={data.social.github}

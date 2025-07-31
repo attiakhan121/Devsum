@@ -9,6 +9,7 @@ export const teamMembers = [
     social: {
       linkedin: '#https://www.linkedin.com/in/tariq-khan-157353372/',
       facebook: '#https://www.facebook.com/tariq.khan.623472',
+      instagram:'',
       github: '#https://github.com/attiakhan121'
     }
   },
@@ -22,6 +23,7 @@ export const teamMembers = [
     social: {
       linkedin: '#https://www.linkedin.com/in/attia-tanveer-khan-8a8a81279/',
       facebook: '#https://www.facebook.com/profile.php?id=61576985506065',
+      instagram:'',
       github: '#https://github.com/attiakhan121'
     }
   },
@@ -35,6 +37,7 @@ export const teamMembers = [
     social: {
       linkedin: '#https://www.linkedin.com/in/haseeb-ahmad-017a29316/',
       facebook: '#https://www.facebook.com/profile.php?id=61576985506065',
+      instagram:'',
       github: '#https://github.com/attiakhan121'
     }
   }

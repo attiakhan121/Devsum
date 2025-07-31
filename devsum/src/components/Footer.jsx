@@ -18,7 +18,6 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: <Facebook size={20} />, href: '#', name: 'Facebook' },
-    { icon: <Twitter size={20} />, href: '#', name: 'Twitter' },
     { icon: <Instagram size={20} />, href: '#', name: 'Instagram' },
     { icon: <Linkedin size={20} />, href: '#', name: 'LinkedIn' },
     { icon: <Github size={20} />, href: '#', name: 'GitHub' }
