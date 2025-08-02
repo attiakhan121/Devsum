@@ -1,9 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import AuthForm from "./AuthForm";
-import { desktopSlideVariants } from "./variants";
+import { desktopSlideVariants } from "./AuthVariants";
+import PropTypes from "prop-types";
 
-const FormContainer = ({ type, variant, direction, onToggle, formResetKey }) => {
+const AuthFormContainer = ({ type, variant, direction, onToggle, formResetKey }) => {
   const isLogin = type === "login";
 
   const containerClass =
@@ -34,4 +35,12 @@ const FormContainer = ({ type, variant, direction, onToggle, formResetKey }) => 
   );
 };
 
-export default FormContainer;
+AuthFormContainer.propTypes = {
+  type: PropTypes.oneOf(["login", "register"]).isRequired,
+  variant: PropTypes.oneOf(["desktop", "mobile"]).isRequired,
+  direction: PropTypes.oneOf(["left", "right"]).isRequired,
+  onToggle: PropTypes.func.isRequired,
+  formResetKey: PropTypes.number.isRequired,
+};
+
+export default AuthFormContainer;

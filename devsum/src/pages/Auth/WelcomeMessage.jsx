@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
-import LoginImage from "../assets/login-ai.png";
-import SignupImage from "../assets/signup-ai.png";
+import PropTypes from "prop-types";
 import {
   Direction,
   desktopSlideVariants,
   mobileSlideVariants,
-} from "./variants";
+} from './AuthVariants';
+import Images from "../../assets";
 
 const WelcomeMessage = ({ type, variant }) => {
   const isLogin = type === "login";
@@ -49,7 +49,7 @@ const WelcomeMessage = ({ type, variant }) => {
           </p>
 
           <motion.img
-            src={isLogin ? LoginImage : SignupImage}
+            src={isLogin ? Images.login : Images.signup}
             alt={isLogin ? "Login Illustration" : "Signup Illustration"}
             className={`
               w-[80%] max-w-xs mx-auto
@@ -80,6 +80,11 @@ const WelcomeMessage = ({ type, variant }) => {
       )}
     </motion.div>
   );
+};
+
+WelcomeMessage.propTypes = {
+  type: PropTypes.oneOf(["login", "register"]).isRequired,
+  variant: PropTypes.oneOf(["desktop", "mobile"]).isRequired,
 };
 
 export default WelcomeMessage;
