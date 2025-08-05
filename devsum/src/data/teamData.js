@@ -9,8 +9,8 @@ export const teamMembers = [
     social: {
       linkedin: '#https://www.linkedin.com/in/tariq-khan-157353372/',
       facebook: '#https://www.facebook.com/tariq.khan.623472',
-      instagram:'',
-      github: '#https://github.com/attiakhan121'
+      instagram:'https://www.instagram.com/tariq_khan_sahil/',
+      github: '#https://github.com/Tariqkhan-coder'
     }
   },
   {
@@ -23,7 +23,7 @@ export const teamMembers = [
     social: {
       linkedin: '#https://www.linkedin.com/in/attia-tanveer-khan-8a8a81279/',
       facebook: '#https://www.facebook.com/profile.php?id=61576985506065',
-      instagram:'',
+      instagram:'https://www.instagram.com/devsum_/',
       github: '#https://github.com/attiakhan121'
     }
   },
@@ -36,9 +36,9 @@ export const teamMembers = [
     bio: 'Backend specialist with expertise in scalable systems, databases, cloud infrastructure, and DevOps practices.',
     social: {
       linkedin: '#https://www.linkedin.com/in/haseeb-ahmad-017a29316/',
-      facebook: '#https://www.facebook.com/profile.php?id=61576985506065',
-      instagram:'',
-      github: '#https://github.com/attiakhan121'
+      facebook: '#https://www.facebook.com/haseeb.ahmed.902947?mibextid=ZbWKwL',
+      instagram:'https://www.instagram.com/haseeb_5hmad?igsh=MTljbGtnbmxqNXd6Mw==',
+      github: '#https://github.com/haseebahmad8225'
     }
   }
   

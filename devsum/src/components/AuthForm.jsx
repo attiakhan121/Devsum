@@ -1,25 +1,55 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { FiUser, FiMail, FiLock } from "react-icons/fi";
-import Button from "./Button";
+import { motion } from "framer-motion";
 
 const AuthForm = ({ type, onToggle }) => {
   const isLogin = type === "login";
 
-  const initialState = {
-    username: "",
-    password: "",
-    registerUsername: "",
-    registerEmail: "",
-    registerPassword: "",
-  };
+  // Validation Schema
+  const schema = yup.object().shape(
+    isLogin
+      ? {
+          username: yup.string().required("Username is required"),
+          password: yup
+            .string()
+            .min(8, "Password must be at least 8 characters")
+            .required("Password is required"),
+        }
+      : {
+          registerUsername: yup.string().required("Username is required"),
+          registerEmail: yup
+            .string()
+            .email("Enter a valid email")
+            .matches(/^[a-zA-Z]/, "Email must start with a letter")
+            .required("Email is required"),
+          registerPassword: yup
+            .string()
+            .min(8, "Password must be at least 8 characters")
+            .required("Password is required"),
+        }
+  );
 
-  const [formData, setFormData] = useState(initialState);
-  const [errors, setErrors] = useState({});
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitted },
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onSubmit",
+  });
 
   useEffect(() => {
-    setFormData(initialState);
-    setErrors({});
-  }, [type]);
+    reset(); // Clear form when switching between login/register
+  }, [type, reset]);
+
+  const onSubmit = (data) => {
+    console.log("Form Submitted:", data);
+    reset(); // Clear after submit
+  };
 
   const fields = isLogin
     ? [
@@ -32,148 +62,94 @@ const AuthForm = ({ type, onToggle }) => {
         { label: "Password", name: "registerPassword", type: "password", Icon: FiLock },
       ];
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({ ...prev, [name]: "" }));
-  };
-
-  const validateEmail = (email) => {
-    if (!/^[a-zA-Z]/.test(email)) {
-      return "Email must start with a letter.";
-    }
-    if (!/^[a-zA-Z][a-zA-Z0-9._]*@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}$/.test(email)) {
-      return "Enter a valid email.";
-    }
-    return "";
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newErrors = {};
-
-    const passwordField = isLogin ? "password" : "registerPassword";
-    if (formData[passwordField].length < 8) {
-      newErrors[passwordField] = "Password must be at least 8 characters.";
-    }
-
-    if (!isLogin) {
-      const emailError = validateEmail(formData.registerEmail);
-      if (emailError) {
-        newErrors["registerEmail"] = emailError;
-      }
-    }
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    const payload = isLogin
-      ? {
-          username: formData.username,
-          password: formData.password,
-        }
-      : {
-          username: formData.registerUsername,
-          email: formData.registerEmail,
-          password: formData.registerPassword,
-        };
-
-    console.log("Submitting form:", payload);
-    setFormData(initialState);
+  const shakeVariants = {
+    initial: { x: 0 },
+    shake: {
+      x: [0, -6, 6, -4, 4, 0],
+      transition: { duration: 0.4 },
+    },
   };
 
   return (
-
     <form
-      onSubmit={handleSubmit}
-      className="w-full max-w-lg mx-auto h-full flex flex-col justify-center px-8 py-8 text-white"
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-full max-w-lg mx-auto h-full flex flex-col justify-center px-6 py-6 text-white relative z-30"
     >
-      {/* Heading */}
-      <h2 className="text-[32px] font-semibold text-center mb-8">
+      <h2 className="text-[30px] font-semibold text-center mb-6">
         {isLogin ? "Login" : "Sign Up"}
       </h2>
 
       {fields.map(({ label, name, type, Icon }) => {
         const hasError = !!errors[name];
-        const isFilled = formData[name];
+        const errorMessage = errors[name]?.message;
 
-        {/* Input Fields */}
         return (
-
-          <div className="relative w-full mb-5" key={name}>
+          <motion.div
+            key={name}
+            variants={shakeVariants}
+            initial="initial"
+            animate={hasError && isSubmitted ? "shake" : "initial"}
+            className="relative w-full mb-4"
+          >
             <input
               type={type}
               id={name}
-              name={name}
-              value={formData[name]}
-              onChange={handleChange}
-              aria-label={label}
-              autoComplete={
-                isLogin
-                  ? name.toLowerCase().includes("password")
-                    ? "current-password"
-                    : name.toLowerCase().includes("username")
-                    ? "username"
-                    : "on"
-                  : "off"
-              }
-              required
-              className={`peer w-full h-12 bg-transparent outline-none border-b-2 ${
-                hasError ? "border-red-500" : "border-white"
-              } pr-8 pt-5 text-base text-white font-medium transition-all duration-500 focus:border-cyan-400`}
+              {...register(name)} // ✅ FIXED: Connected to react-hook-form
+              placeholder=" "
+              autoComplete="off"
+              className={`peer w-full h-10 bg-transparent outline-none border-b-2
+                pr-8 pt-5 text-sm font-medium text-white transition-all duration-300
+                ${
+                  hasError
+                    ? "border-red-500"
+                    : "border-white focus:border-orange-500 [&:not(:placeholder-shown)]:border-orange-500"
+                }`}
             />
 
-            {/* Lable */}
             <label
               htmlFor={name}
-              className={`absolute left-0 text-base transition-all duration-500 pointer-events-none ${
-                isFilled || hasError
-                  ? "top-[-6px]"
-                  : "top-1/2 transform -translate-y-1/2"
-              } ${
-                hasError
-                  ? "text-red-500"
-                  : isFilled
-                  ? "text-cyan-400"
-                  : "peer-focus:top-[-6px] peer-focus:text-cyan-400"
-              }`}
+              className={`absolute left-0 text-sm pointer-events-none transition-all duration-300
+                peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%]
+                top-[-6px] peer-focus:top-[-6px] peer-focus:translate-y-0
+                ${
+                  hasError
+                    ? "text-red-500"
+                    : "text-white peer-focus:text-orange-500 peer-[&:not(:placeholder-shown)]:text-orange-500"
+                }`}
             >
               {label}
             </label>
-            
-            {/* Icon */}
+
             <Icon
-              className={`absolute top-1/2 right-0 transform -translate-y-1/2 text-[18px] transition-all duration-500 ${
-                hasError
-                  ? "text-red-500"
-                  : isFilled
-                  ? "text-cyan-400"
-                  : "text-white"
-              }`}
+              className={`absolute top-1/2 right-0 transform -translate-y-1/2 text-[16px] transition-all duration-300
+                ${
+                  hasError
+                    ? "text-red-500"
+                    : "text-white peer-focus:text-orange-500 peer-[&:not(:placeholder-shown)]:text-orange-500"
+                }`}
             />
 
             {hasError && (
-              <p className="text-red-500 text-sm mt-1">{errors[name]}</p>
+              <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
             )}
-          </div>
+          </motion.div>
         );
       })}
 
-      {/* Button */}
-      <div className="mt-0">
-        <Button type="submit" variant="gradient">
+      <div className="relative w-32 h-[40px] rounded-full overflow-hidden border-2 border-orange-500 hover:border-orange-600 transition-all duration-300">
+        <button
+          type="submit"
+          className="relative z-10 w-full h-full flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-full transition-colors duration-300"
+        >
           {isLogin ? "Login" : "Sign Up"}
-        </Button>
+        </button>
       </div>
 
-      {/* Links */}
-      <p className="text-[14.5px] text-white text-center mt-5 mb-2">
+      <p className="text-sm text-white text-center mt-4 mb-1">
         {isLogin ? "Don’t have an account?" : "Already have an account?"}
         <span
           onClick={onToggle}
-          className="text-cyan-400 font-semibold ml-1 cursor-pointer hover:underline"
+          className="text-orange-500 hover:text-orange-600 hover:underline font-semibold ml-1 cursor-pointer transition-colors duration-300"
         >
           {isLogin ? "Sign Up" : "Login"}
         </span>

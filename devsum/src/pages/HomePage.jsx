@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -10,9 +10,11 @@ import { projects } from '../data/projectsData';
 import { aboutFeatures } from '../data/aboutData';
 import { teamMembers } from '../data/teamData';
 import { testimonials } from '../data/testimonialsData';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, Pagination, Navigation } from 'swiper/modules';
-import { useNavigate, useLocation } from 'react-router-dom'; 
+import { Autoplay, FreeMode } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/free-mode';
 
 // Typing Animation Component
 const TypingAnimation = () => {
@@ -28,17 +30,13 @@ const TypingAnimation = () => {
 
     const timer = setTimeout(() => {
       if (!isDeleting && currentText === currentWord) {
-        //pause then start deleting
         setTimeout(() => setIsDeleting(true), pauseDuration);
       } else if (isDeleting && currentText === '') {
-        //move to next word
         setIsDeleting(false);
         setCurrentWordIndex((prev) => (prev + 1) % words.length);
       } else if (isDeleting) {
-        // Delete 
         setCurrentText(currentWord.substring(0, currentText.length - 1));
       } else {
-        // Type 
         setCurrentText(currentWord.substring(0, currentText.length + 1));
       }
     }, typingSpeed);
@@ -47,16 +45,18 @@ const TypingAnimation = () => {
   }, [currentText, isDeleting, currentWordIndex, words]);
 
   return (
-    <span className="bg-orange-500 bg-clip-text text-transparent">
-      {currentText}
-      <motion.span
-        animate={{ opacity: [1, 0] }}
-        transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
-        className="text-orange-400"
-      >
-        |
-      </motion.span>
-    </span>
+    <div className="h-32 md:h-36 flex items-start justify-center pt-2">
+      <span className="inline-block text-center leading-tight">
+        <span className="text-orange-500 ">{currentText}</span>
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.5, repeat: Infinity, repeatType: 'reverse' }}
+          className="text-orange-400"
+        >
+          |
+        </motion.span>
+      </span>
+    </div>
   );
 };
 
@@ -68,7 +68,6 @@ const AnimatedCounter = ({ end, duration = 2, suffix = '', prefix = '' }) => {
   useEffect(() => {
     if (hasAnimated) return;
 
-    // get number
     const num = parseInt(end.replace(/[^\d]/g, ''));
     
     let start;
@@ -119,6 +118,8 @@ const AnimatedCounter = ({ end, duration = 2, suffix = '', prefix = '' }) => {
 const HomePage = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
+  const swiperRef = useRef(null);
+  const [isAutoplayPaused, setIsAutoplayPaused] = useState(false);
 
   useEffect(() => {
     AOS.init({
@@ -128,13 +129,11 @@ const HomePage = () => {
     });
   }, []);
 
-  //navigating from other pages
   useEffect(() => {
     if (location.state && location.state.scrollToId) {
       const element = document.getElementById(location.state.scrollToId);
       if (element) {
         element.scrollIntoView({ behavior: 'smooth' });
-        // Clear the state after scrolling 
         navigate(location.pathname, { replace: true, state: {} }); 
       }
     }
@@ -147,7 +146,20 @@ const HomePage = () => {
     }
   };
 
-  // Navigation handlers for internal and external links
+  // Testimonial hover handlers for immediate response
+  const handleTestimonialHover = (isHovering) => {
+    if (swiperRef.current && swiperRef.current.autoplay) {
+      if (isHovering) {
+        swiperRef.current.autoplay.stop();
+        setIsAutoplayPaused(true);
+      } else {
+        swiperRef.current.autoplay.start();
+        setIsAutoplayPaused(false);
+      }
+    }
+  };
+
+  // Navigation handlers
   const handleCourseLearnMore = (course) => {
     console.log('Course Learn More clicked:', course);
     navigate('/courses'); 
@@ -254,7 +266,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      
       {/* Courses Section */}
       <section id="courses" className="py-20 bg-[#002140]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -455,7 +466,7 @@ const HomePage = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 bg-[#002140]">
+      <section id="testimonials" className="py-20 bg-[#002140] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className="text-center mb-16"
@@ -470,49 +481,58 @@ const HomePage = () => {
             </p>
           </div>
 
-          <div
-            className="relative px-12 pb-16 w-full"
-            data-aos="fade-up"
-            data-aos-delay="200"
-            data-aos-duration="1000"
-          >
-            <Swiper
-              modules={[Autoplay, Pagination, Navigation]}
-              spaceBetween={30}
-              slidesPerView={1}
-              autoplay={{
-                delay: 4000,
-                disableOnInteraction: false,
-              }}
-              pagination={{
-                clickable: true,
-                bulletActiveClass: 'swiper-pagination-bullet-active',
-              }}
-              navigation={true}
-              loop={true}
-              breakpoints={{
-                640: {
-                  slidesPerView: 1,
-                },
-                768: {
-                  slidesPerView: 2,
-                },
-                1024: {
-                  slidesPerView: 3,
-                },
-              }}
-              className="testimonials-swiper"
-            >
-              {testimonials.map((testimonial) => (
-                <SwiperSlide key={testimonial.id}>
-                  <Card
-                    type="testimonial"
-                    data={testimonial}
-                    className="mx-2"
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+          <div className="relative testimonials-wrapper">
+            <div className="testimonials-container">
+              <Swiper
+                modules={[Autoplay, FreeMode]}
+                spaceBetween={20}
+                slidesPerView="auto"
+                freeMode={{
+                  enabled: true,
+                  sticky: false,
+                }}
+                autoplay={{
+                  delay: 0,
+                  disableOnInteraction: false,
+                  reverseDirection: false,
+                }}
+                speed={3000}
+                loop={true}
+                allowTouchMove={true}
+                grabCursor={true}
+                onSwiper={(swiper) => (swiperRef.current = swiper)}
+                breakpoints={{
+                  320: {
+                    spaceBetween: 16,
+                  },
+                  480: {
+                    spaceBetween: 18,
+                  },
+                  768: {
+                    spaceBetween: 20,
+                  },
+                  1024: {
+                    spaceBetween: 24,
+                  },
+                }}
+                className="testimonials-swiper"
+              >
+                {testimonials.concat(testimonials, testimonials).map((testimonial, index) => (
+                  <SwiperSlide key={`testimonial-${index}`} style={{ width: 'auto' }}>
+                    <div 
+                      className="w-[320px] sm:w-[360px] md:w-[380px] lg:w-[400px] testimonial-card"
+                      onMouseEnter={() => handleTestimonialHover(true)}
+                      onMouseLeave={() => handleTestimonialHover(false)}
+                    >
+                      <Card
+                        type="testimonial" 
+                        data={testimonial}
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </div>
       </section>

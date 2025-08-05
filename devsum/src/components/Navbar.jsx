@@ -46,9 +46,12 @@ const Navbar = () => {
 
 
   const handleDirectLinkClick = () => {
+    console.log("Clicked");
     setIsOpen(false); 
     setisDropdownOpen(false); 
   };
+
+  
 
   // Define navigation links for sections on the home page
   const navLinks = [

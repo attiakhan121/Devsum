@@ -5,7 +5,7 @@ export const testimonials = [
     position: 'Software Engineer at Google',
     image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300',
     rating: 5,
-    text: "DEVSUM transformed my career. Real-world projects and hands-on learning gave me the confidence to land a job."
+    text: "DEVSUM transformed my career. Real-world projects and hands-on learning gave me the confidence for job."
   },
   {
     id: 2,
