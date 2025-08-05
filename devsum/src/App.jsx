@@ -14,6 +14,7 @@ import "./index.css";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import Routes from "./routes/index";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
          <Route path="/contact" element={<ContactUs />} />
           <Route path="/auth" element={<Auth />} />
+          
       </Routes>
       <Footer />
     </Router>
