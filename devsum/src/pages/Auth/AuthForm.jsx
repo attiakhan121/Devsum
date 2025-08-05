@@ -1,41 +1,57 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { FiUser, FiMail, FiLock } from "react-icons/fi";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { useAuth } from "../../context/AuthContext";
 import Button from "../../components/Button";
+import Alert from "./Alert";
 
 const AuthForm = ({ type, onToggle }) => {
+  const { login, register, loading, error, setError } = useAuth();
   const isLogin = type === "login";
 
-  // Validation 
-const schema = yup.object().shape(
-  isLogin
-    ? {
-        username: yup.string().required("Username is required"),
-        password: yup
-          .string()
-          .min(8, "Password must be at least 8 characters")
-          .required("Password is required"),
-      }
-    : {
-        username: yup.string().required("Username is required"),
-        email: yup
-          .string()
-          .email("Enter a valid email")
-          .matches(/^[a-zA-Z]/, "Email must start with a letter")
-          .required("Email is required"),
-        password: yup
-          .string()
-          .min(8, "Password must be at least 8 characters")
-          .required("Password is required"),
-      }
-);
+  const { id } = useId();
+
+  const schema = yup.object().shape(
+    isLogin
+      ? {
+          email: yup
+            .string()
+            .email("Enter a valid email")
+            .matches(/^[a-zA-Z]/, "Email must start with a letter")
+            .required("Email is required"),
+          password: yup
+            .string()
+            .min(8, "Password must be at least 8 characters")
+            .required("Password is required"),
+        }
+      : {
+          username: yup
+            .string()
+            .required("Username is required")
+            .min(3, "Username must be at least 3 characters")
+            .max(20, "Username must not exceed 20 characters"),
+          email: yup
+            .string()
+            .email("Enter a valid email")
+            .matches(/^[a-zA-Z]/, "Email must start with a letter")
+            .required("Email is required"),
+          password: yup
+            .string()
+            .min(8, "Password must be at least 8 characters")
+            .matches(
+              /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/,
+              "Password must contain uppercase, lowercase, number, and special character"
+            )
+            .required("Password is required"),
+        }
+  );
 
   const {
-    register,
+    register: formRegister,
     handleSubmit,
     reset,
     formState: { errors, isSubmitted },
@@ -45,24 +61,28 @@ const schema = yup.object().shape(
   });
 
   useEffect(() => {
-    reset(); 
-  }, [type, reset]);
+    reset();
+    setError(null);
+  }, [type, reset, setError]);
 
-  const onSubmit = (data) => {
-    console.log("Form Submitted:", data);
-    reset(); 
+  const onSubmit = async (data) => {
+    const result = isLogin ? await login(data) : await register(data);
+
+    if (result.success) {
+      reset();
+    }
   };
 
   const fields = isLogin
-  ? [
-      { label: "Username", name: "username", type: "text", Icon: FiUser },
-      { label: "Password", name: "password", type: "password", Icon: FiLock },
-    ]
-  : [
-      { label: "Username", name: "username", type: "text", Icon: FiUser },
-      { label: "Email", name: "email", type: "email", Icon: FiMail },
-      { label: "Password", name: "password", type: "password", Icon: FiLock },
-    ];
+    ? [
+        { label: "Email", name: "email", type: "email", Icon: FiMail },
+        { label: "Password", name: "password", type: "password", Icon: FiLock },
+      ]
+    : [
+        { label: "Username", name: "username", type: "text", Icon: FiUser },
+        { label: "Email", name: "email", type: "email", Icon: FiMail },
+        { label: "Password", name: "password", type: "password", Icon: FiLock },
+      ];
 
   const shakeVariants = {
     initial: { x: 0 },
@@ -75,11 +95,17 @@ const schema = yup.object().shape(
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-lg mx-auto h-full flex flex-col justify-center px-6 py-6 white relative z-30"
+      className="w-full max-w-md mx-auto h-full flex flex-col justify-center px-4 py-8 relative z-30"
     >
-      <h2 className="text-[30px] font-semibold text-center mb-6">
+      <h2 className="text-4xl font-semibold text-center mb-6 text-white">
         {isLogin ? "Login" : "Sign Up"}
       </h2>
+
+      {error && (
+        <Alert variant="error" className="mb-4">
+          {error}
+        </Alert>
+      )}
 
       {fields.map(({ label, name, type, Icon }) => {
         const hasError = !!errors[name];
@@ -91,45 +117,48 @@ const schema = yup.object().shape(
             variants={shakeVariants}
             initial="initial"
             animate={hasError && isSubmitted ? "shake" : "initial"}
-            className="relative w-full mb-4"
+            className="relative w-full mb-6"
           >
-            <input
-              type={type}
-              id={name}
-              {...register(name)} 
-              placeholder=" "
-              autoComplete={isLogin && name === "username" ? "username" : "off"}
-              className={`peer w-full h-10 bg-transparent outline-none border-b-2
-                pr-8 pt-5 text-sm font-medium white transition-all duration-300
-                ${
-                  hasError
-                    ? "border-red-500"
-                    : "border-white focus:border-accent [&:not(:placeholder-shown)]:border-accent"
-                }`}
-            />
+            <div className="relative">
+              <input
+                type={type}
+                id={id}
+                {...formRegister(name)}
+                placeholder=" "
+                autoComplete={isLogin && name === "email" ? "email" : "off"}
+                disabled={loading}
+                className={`peer w-full h-10 bg-transparent outline-none border-b-2
+                  pr-10 pt-6 text-md font-medium text-border-white transition-all duration-300
+                  ${
+                    hasError
+                      ? "border-red-500"
+                      : "border-white focus:border-accent [&:not(:placeholder-shown)]:border-accent"
+                  }`}
+              />
 
-            <label
-              htmlFor={name}
-              className={`absolute left-0 text-sm pointer-events-none transition-all duration-300
+              <label
+                htmlFor={id}
+                className={`absolute left-0 text-md pointer-events-none transition-all duration-300
                 peer-placeholder-shown:top-1/2 peer-placeholder-shown:translate-y-[-50%]
                 top-[-6px] peer-focus:top-[-6px] peer-focus:translate-y-0
-                ${
-                  hasError
-                    ? "text-red-500"
-                    : "white peer-focus:text-accent peer-[&:not(:placeholder-shown)]:text-accent"
-                }`}
-            >
-              {label}
-            </label>
+                  ${
+                    hasError
+                      ? "text-red-500"
+                      : "white peer-focus:text-accent peer-[&:not(:placeholder-shown)]:text-accent"
+                  }`}
+              >
+                {label}
+              </label>
 
-            <Icon
-              className={`absolute top-1/2 right-0 transform -translate-y-1/2 text-[16px] transition-all duration-300
-                ${
-                  hasError
-                    ? "text-red-500"
-                    : "white peer-focus:text-accent peer-[&:not(:placeholder-shown)]:text-accent"
-                }`}
-            />
+              <Icon
+                className={`absolute top-1/2 right-0 transform -translate-y-1/2 text-xl transition-all duration-300
+                  ${
+                    hasError
+                      ? "text-red-500"
+                      : "white peer-focus:text-accent  peer-[&:not(:placeholder-shown)]:text-accent"
+                  }`}
+              />
+            </div>
 
             {hasError && (
               <p className="text-red-500 text-sm mt-1">{errorMessage}</p>
@@ -138,23 +167,29 @@ const schema = yup.object().shape(
         );
       })}
 
-      <div className="relative w-32 h-[40px] rounded-full overflow-hidden border-2 border-accent hover:border-orange-600 transition-all duration-300">
-        <Button type="submit"
-                variant="primary"
-                size="sm"
-                className="w-32 h-[40px] border-2 border-accent hover:border-orange-600 rounded-full"
->           {isLogin ? "Login" : "Sign Up"}
-       </Button>
+      <div className="mt-8">
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          className="w-full border-2 border-accent hover:border-orange-600 rounded-full"
+          disabled={loading}
+          isLoading={loading}
+        >
+          {isLogin ? "Login" : "Sign Up"}
+        </Button>
       </div>
 
-      <p className="text-sm white text-center mt-4 mb-1">
-        {isLogin ? "Don’t have an account?" : "Already have an account?"}
-        <span
+      <p className="text-md text-white text-center mt-6">
+        {isLogin ? "Don't have an account?" : "Already have an account?"}
+        <button
+          type="button"
           onClick={onToggle}
-          className="text-accent hover:text-orange-600 hover:underline font-semibold ml-1 cursor-pointer transition-colors duration-300"
+          disabled={loading}
+          className="ml-1 font-semibold text-accent hover:text-orange-600 hover:underline focus:outline-none transition-colors duration-200"
         >
-          {isLogin ? "Sign Up" : "Login"}
-        </span>
+          {isLogin ? "Sign up" : "Sign in"}
+        </button>
       </p>
     </form>
   );

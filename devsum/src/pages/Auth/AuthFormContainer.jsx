@@ -9,7 +9,7 @@ const AuthFormContainer = ({ type, variant, direction, onToggle, formResetKey })
 
   const containerClass =
     variant === "desktop"
-      ? `absolute top-0 ${isLogin ? "left-0" : "right-0"} w-1/2 h-full z-30`
+      ? `absolute top-10 ${isLogin ? "left-3" : "right-3"} w-1/2 h-full z-30`
       : `w-full px-4 z-30 relative`;
 
   const motionProps =

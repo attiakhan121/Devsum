@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { AnimatePresence } from "framer-motion";
-import FormContainer from "./AuthFormContainer";
+import { motion, AnimatePresence } from "framer-motion";
+import PropTypes from "prop-types";
+
+import AuthFormContainer from "./AuthFormContainer";
 import WelcomeMessage from "./WelcomeMessage";
 import AuthSpans from "./AuthSpans";
-import PropTypes from "prop-types";
 
 const AuthWrapper = ({ initialType = "login" }) => {
   const [showRegister, setShowRegister] = useState(initialType === "register");
@@ -26,9 +27,9 @@ const AuthWrapper = ({ initialType = "login" }) => {
 
   return (
     <main className="min-h-screen flex items-center justify-center px-2">
-      <section className="relative w-full max-w-[750px] md:h-[470px] border-2 border-accent shadow-[0_0_25px_#f97316] hover:shadow-[0_0_35px_#ea580c] transition-shadow duration-300 overflow-hidden bg-transparent">
+      <section className="relative w-full max-w-[1000px] min-h-[700px] md:min-h-0 py-20 border-2 border-accent shadow-[0_0_25px_#f97316] hover:shadow-[0_0_35px_#ea580c] transition-shadow duration-300 overflow-hidden bg-transparent">
 
-        {/* Background Spans Layer */}
+        {/* Background Animation Layer */}
         <div className="absolute inset-0 z-10 pointer-events-none">
           <AuthSpans
             showRegister={showRegister}
@@ -37,12 +38,12 @@ const AuthWrapper = ({ initialType = "login" }) => {
           />
         </div>
 
-        {/* === DESKTOP === */}
+        {/* ===== DESKTOP VERSION ===== */}
         <div className="hidden md:block relative w-full h-[470px] z-30">
           <AnimatePresence mode="wait">
             {!isTransitioning && (
               <>
-                <FormContainer
+                <AuthFormContainer
                   key={`form-desktop-${formResetKey}`}
                   type={currentType}
                   variant="desktop"
@@ -60,30 +61,27 @@ const AuthWrapper = ({ initialType = "login" }) => {
           </AnimatePresence>
         </div>
 
-        {/* === MOBILE === */}
-        <div className="block md:hidden w-full h-[600px] px-4 pt-6 relative z-30">
-          <AnimatePresence mode="wait">
-            {!isTransitioning && (
-              <>
-                <WelcomeMessage
-                  key={`msg-mobile-${formResetKey}`}
-                  type={currentType}
-                  variant="mobile"
-                />
-                <div className="w-full flex justify-center">
-                  <FormContainer
-                    key={`form-mobile-${formResetKey}`}
-                    type={currentType}
-                    variant="mobile"
-                    direction={currentDirection}
-                    onToggle={handleToggle}
-                    formResetKey={formResetKey}
-                  />
-                </div>
-              </>
-            )}
-          </AnimatePresence>
-        </div>
+        {/* ===== MOBILE VERSION ===== */}
+        <AnimatePresence mode="sync">
+          <motion.div
+            key={`form-mobile-${formResetKey}`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            className={`md:hidden absolute left-0 w-full z-30 flex justify-center px-4 ${
+              showRegister ? "top-10" : "top-[30vh]"
+            }`}
+          >
+            <AuthFormContainer
+              type={currentType}
+              variant="mobile"
+              direction={currentDirection}
+              onToggle={handleToggle}
+              formResetKey={formResetKey}
+            />
+          </motion.div>
+        </AnimatePresence>
       </section>
     </main>
   );
