@@ -73,9 +73,9 @@ const TestimonialSection = () => {
           >
             {testimonials.map((t, i) => (
               <SwiperSlide key={i}>
-                <div className="bg-[#021322] p-10 rounded-2xl shadow-md relative w-full min-h-[350px] transition-transform duration-300 hover:scale-[1.02]">
+                <div className="bg-[#002147] p-10 rounded-2xl shadow-md relative w-full min-h-[350px] transition-transform duration-300 hover:scale-[1.02]">
                   <div className='flex justify-start'>
-                  <FaQuoteLeft className='text-4xl text-orange-600 absolute top-6 left-6'/>
+                  <FaQuoteLeft className='text-4xl text-orange-500 absolute top-6 left-6'/>
                   </div>
                   <div className="flex items-center mb-6 mt-6">
                     <img src={t.img} className="w-16 h-16 rounded-full mr-5 shadow-md" alt={t.name} />
@@ -118,7 +118,7 @@ const TestimonialSection = () => {
         <div className="bg-white p-10 md:rounded-r-3xl">
           <p className="uppercase text-orange-500 font-semibold text-sm tracking-widest mb-2">Testimonials</p>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight mb-4">
-            Trusted by <span className="text-orange-600">Future Tech Leaders</span>
+            Trusted by <span className="text-orange-500">Future Tech Leaders</span>
           </h2>
           <p className="text-gray-600 text-md">
             We’ve helped hundreds of interns like you gain hands-on experience, polish their skills, and shine in real-world projects. Hear their stories!
