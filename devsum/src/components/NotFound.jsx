@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import Button from "./Button";
+import TechIcon from "./TechIcon";
 
-export default function Error() {
+export default function NotFound() {
   return (
     <section className="relative z-1 pb-16 pt-36 md:pb-20 lg:pb-28 lg:pt-[180px]">
-      <div className="page-wrapper">
+      <div className="container">
         <div className="mx-auto max-w-[530px] text-center">
           <div className="mx-auto text-center mb-9">
             <svg
@@ -134,7 +135,14 @@ export default function Error() {
             does not exist.
           </p>
           <Link to="/">
-            <Button size="lg" className="rounded-md">
+            <Button
+              size="lg"
+              className="rounded-md group transition-all duration-300 hover:bg-accent hover:border-accent hover:text-white"
+            >
+              <TechIcon
+                name="move-left"
+                className="transform transition-transform duration-300 group-hover:-translate-x-1"
+              />
               Back to Homepage
             </Button>
           </Link>
