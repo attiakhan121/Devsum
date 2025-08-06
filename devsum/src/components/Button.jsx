@@ -4,7 +4,8 @@ const Button = ({
   size = "default",
   disabled = false,
   className = "",
-  ...props
+  isLoading = false, 
+  ...props 
 }) => {
   const baseClass =
     "rounded-full font-medium transition-all duration-300 focus:outline-none inline-flex items-center justify-center gap-2 whitespace-nowrap disabled:pointer-events-none cursor-pointer";
