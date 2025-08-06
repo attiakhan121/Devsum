@@ -21,6 +21,7 @@ import CoursesDetail from "./pages/CoursesDetailsPage";
 import ScrollUp from "./components/ScrollUp";
 import ScrollToTop from "./components/ScrollToTop";
 import ProjectsPage from "./pages/ProjectsPage";
+import TeamPage from './Pages/TeamsPage';
 
 function App() {
  return (
@@ -31,6 +32,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<ContactUs />} />
+          <Route path="/team" element={<TeamPage />} />
             <Route path="/devsumdiaries" element={<DevsumDiaries />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/courses" element={<Coursespage />} />
