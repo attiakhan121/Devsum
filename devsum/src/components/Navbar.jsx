@@ -31,6 +31,12 @@ const Navbar = () => {
 
   // to navigate for section links on the home page
   const handleNavLinkClick = (sectionId) => {
+    if (sectionId === '/team') {
+      navigate('/team');
+      setIsOpen(false);
+      setisDropdownOpen(false);
+      return;
+    }
     if (location.pathname === '/') {
       const element = document.getElementById(sectionId);
       if (element) {
@@ -58,7 +64,7 @@ const Navbar = () => {
     { name: 'Courses', id: 'courses' },
     { name: 'Projects', id: 'projects' },
     { name: 'About Us', id: 'about' },
-    { name: 'Team', id: 'team' },
+    { name: 'Team', id: '/team' },
     { name: 'Testimonials', id: 'testimonials' },
   ];
 
