@@ -10,6 +10,7 @@ import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
 import ContactUs from "./pages/ContactUs";
 import Auth from './pages/Auth';
+import DevsumDiaries from './pages/DevsumDiaries'
 import "./index.css";
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -30,6 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/devsumdiaries" element={<DevsumDiaries />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/courses" element={<Coursespage />} />
             <Route path="/courses/:id" element={<CoursesDetail />} />

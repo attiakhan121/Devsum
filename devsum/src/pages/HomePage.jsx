@@ -426,10 +426,10 @@ const HomePage = () => {
             data-aos-duration="1000"
           >
             <button
-              onClick={() => navigate('/about')} 
+              onClick={() => navigate('/devsumdiaries')} 
               className="group px-8 py-4 border border-slate-600 text-slate-300 rounded-xl hover:bg-slate-700 hover:border-slate-500 hover:text-white transition-all duration-300 flex items-center justify-center gap-2 text-lg font-semibold mx-auto transform hover:scale-105"
             >
-              Explore More About Us
+              Explore Our Journey
               <ChevronDown className="group-hover:translate-y-1 transition-transform" size={20} />
             </button>
           </div>
