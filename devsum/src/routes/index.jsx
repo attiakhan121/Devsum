@@ -6,6 +6,8 @@ import ScrollUp from "../components/ScrollUp";
 import ScrollToTop from "../components/ScrollToTop";
 import ProjectsPage from "../pages/ProjectsPage";
 import NotFound from "../components/NotFound";
+import Login from "../pages/Auth/Login";
+import Register from "../pages/Auth/Register";
 
 const AppRoutes = () => {
   return (
@@ -13,6 +15,8 @@ const AppRoutes = () => {
       <ScrollToTop />
       <RouterRoutes>
         <Route path="/" element={<Coursespage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/Sign-up" element={<Register />} />
         <Route path="/courses/:id" element={<CoursesDetail />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/projects/:id" element={<ProjectDetail />} />

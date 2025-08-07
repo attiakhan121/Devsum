@@ -13,7 +13,7 @@ const SingleGridItem = ({ course }) => {
       className="h-full flex flex-col rounded-lg overflow-hidden shadow-lg bg-dark-blue transition-all duration-300 p-5 group sm:p-7"
     >
       {/* Course Image */}
-      <div className="relative pt-[56.25%] w-full rounded-lg overflow-hidden"> {/* Fixed aspect ratio */}
+      <div className="relative pt-[56.25%] w-full rounded-lg overflow-hidden">
         <img
           src={course.image}
           alt={course.title}
@@ -21,7 +21,7 @@ const SingleGridItem = ({ course }) => {
         />
       </div>
 
-      <div className="flex-1 flex flex-col mt-6"> {/* Flex container for content */}
+      <div className="flex-1 flex flex-col mt-6">
         <div className="flex items-center justify-between">
           <span className="bg-accent/70 rounded text-xs py-[4px] px-2">
             {course.category}
@@ -41,9 +41,9 @@ const SingleGridItem = ({ course }) => {
             {`(${course.rating})`}
           </div>
         </div>
-        
+
         <Link to={`/courses/${course.id}`}>
-          <h3 className="font-semibold text-xl my-4 hover:text-accent transition-colors cursor-pointer line-clamp-2"> {/* Added line-clamp */}
+          <h3 className="font-semibold text-xl my-4 hover:text-accent transition-colors cursor-pointer line-clamp-2">
             {course.title}
           </h3>
         </Link>
@@ -67,7 +67,6 @@ const SingleGridItem = ({ course }) => {
           What you'll learn:
         </h3>
 
-        {/* Tech Stack */}
         <div className="flex flex-wrap gap-2 my-5">
           {course.technologies.slice(0, 4).map((tech) => (
             <span
@@ -99,7 +98,7 @@ const SingleGridItem = ({ course }) => {
           </div>
         </div>
 
-        <div className="mt-auto"> {/* Pushes button to bottom */}
+        <div className="mt-auto">
           <Link to={`/courses/${course.id}`}>
             <Button
               size="lg"

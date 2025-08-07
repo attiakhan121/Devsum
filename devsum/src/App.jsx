@@ -1,7 +1,13 @@
-import Routes from "./routes/index";
+import InternesTestimonials from "./pages/DevSumDairiesPage";
+import Route from "./routes/index";
 
 function App() {
-  return <Routes />;
+  return (
+    <>
+      {/* <Route /> */}
+      <InternesTestimonials />
+    </>
+  );
 }
 
 export default App;

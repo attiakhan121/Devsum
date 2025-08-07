@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Button from "../../components/Button";
 import Tabs from "./Tab";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { coursesData } from "../CoursesPage/coursesData";
 import Breadcrumb from "../../components/BreadCrumb";
 import TechIcon from "../../components/TechIcon";
@@ -143,7 +143,11 @@ const CourseDetail = () => {
                 </div>
               </div>
 
-              <Button className="rounded-md cursor-pointer">Enroll Now</Button>
+              <Link to="/login">
+                <Button className="rounded-md cursor-pointer">
+                  Enroll Now
+                </Button>
+              </Link>
             </div>
 
             <div className="bg-dark-blue p-4 sm:p-6 mt-5">

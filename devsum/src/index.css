@@ -8,13 +8,22 @@ body {
 }
 
 @theme {
-  --color-bg: #0b1c2d;
+  --color-bg: #002147;
   --color-dark-blue: #1e293b;
   --color-accent: #f97316;
   --color-black: #000000;
   --color-white: #d3dce6;
   --color-soft-white: #d3dce6d7;
   --color-border-blue: #708090;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition: background-color 9999s ease-in-out 0s, color 9999s ease-in-out 0s;
+  -webkit-text-fill-color: white !important;
+  box-shadow: 0 0 0px 1000px transparent inset !important;
 }
 
 @layer utilities {
@@ -35,5 +44,17 @@ body {
   }
 }
 
+.swiper {
+  padding: 0px 0;
+  overflow: visible;
+}
 
+.swiper-slide {
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center bottom;
+}
+
+.swiper-slide-active {
+  z-index: 10;
+}
 
