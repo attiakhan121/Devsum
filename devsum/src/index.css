@@ -6,25 +6,12 @@ body {
   background-color: #002147; /* dark background */
   color: #d3dce6; /* light text */
 }
-  font-family: "Poppins", sans-serif;
-  background-color: #002147; /* dark background */
-  color: #d3dce6; /* light text */
-}
+ 
 
 @theme {
   --color-bg: #002147;
   --color-dark-blue: #1e293b;
   --color-accent: #f97316;
-@theme {
-  --color-bg: #0b1c2d;
-  --color-dark-blue: #1e293b;
-  --color-accent: #f97316;
-  --color-black: #000000;
-  --color-white: #d3dce6;
-  --color-soft-white: #d3dce6d7;
-  --color-white: #d3dce6;
-  --color-soft-white: #d3dce6d7;
-  --color-border-blue: #708090;
 }
 
 input:-webkit-autofill,
@@ -51,6 +38,10 @@ input:-webkit-autofill:active {
       padding-left: 20px;
       padding-right: 20px;
     }
+  }
+
+  .shadow-orange-2xl {
+    box-shadow: 0 25px 50px -12px rgba(234, 89, 27, 0.6);
   }
 }
 @keyframes fadeIn {
@@ -85,3 +76,13 @@ input:-webkit-autofill:active {
     }
   }
 }
+
+.swiper-pagination-bullet-active {
+  background-color: #f97316 !important; 
+}
+
+.swiper-pagination-bullet {
+  background-color: #cbd5e1; 
+}
+
+

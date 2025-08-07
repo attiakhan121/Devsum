@@ -9,7 +9,8 @@ import Navbar from "./components/Navbar";
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer';
 import ContactUs from "./pages/ContactUs";
-import Auth from './pages/Auth';
+import { AuthProvider } from './context/AuthContext';
+import Login from './pages/Auth/Login';
 import DevsumDiaries from './pages/DevsumDiaries'
 import "./index.css";
 import 'swiper/css';
@@ -28,17 +29,19 @@ function App() {
     <Router>
          <Navbar />
          <ScrollToTop />
+         <AuthProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/devsumdiaries" element={<DevsumDiaries />} />
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/auth" element={<Login  />} />
             <Route path="/courses" element={<Coursespage />} />
             <Route path="/courses/:id" element={<CoursesDetail />} />
             <Route path="/projects" element={<ProjectsPage />} />
             <Route path="/projects/:id" element={<ProjectDetail />} />
             <Route path="*" element={<NotFound />} /> 
             </Routes>
+            </AuthProvider>
             <ScrollUp />
             <Footer />
       </Router>

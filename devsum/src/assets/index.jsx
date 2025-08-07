@@ -10,6 +10,8 @@ import project2 from "../assets/images/project/project2.webp";
 import project3 from "../assets/images/project/project3.webp";
 import project4 from "../assets/images/project/project4.webp";
 import project5 from "../assets/images/project/project5.webp";
+import login from "../assets/images/login/login.png"
+import signup from "../assets/images/login/signup.png"
 
 const Images = {
   course1,
@@ -24,5 +26,7 @@ const Images = {
   project3,
   project4,
   project5,
+  login,
+  signup,
 };
 export default Images;
